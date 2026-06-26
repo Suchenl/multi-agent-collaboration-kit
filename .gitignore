@@ -1,4 +1,6 @@
 # prepare-agent-cooperation-project
+__pycache__/
+*.py[cod]
 .agents/agents/*.md
 .agents/tasks/*.md
 !.agents/agents/.gitkeep
