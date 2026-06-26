@@ -1,4 +1,4 @@
-# prepare-agent-cooperation-project
+# multi-agent-collaboration-kit
 
 Make any repository agent-ready with a tiny, local-first coordination layer.
 
@@ -12,7 +12,7 @@ agents, and humans share rules, state, task handoffs, and safe work boundaries.
 ### 1. Start a new project
 
 ```bash
-PYTHONPATH=src python -m prepare_agent_cooperation_project new ./my-project --package-name my_project
+PYTHONPATH=src python -m multi_agent_collaboration_kit new ./my-project --package-name my_project
 ```
 
 This creates a simple Python `src/` layout plus the agent-native coordination
@@ -21,7 +21,7 @@ files.
 ### 2. Adapt an existing project
 
 ```bash
-PYTHONPATH=src python -m prepare_agent_cooperation_project adapt /path/to/existing-project
+PYTHONPATH=src python -m multi_agent_collaboration_kit adapt /path/to/existing-project
 ```
 
 The adapter is additive and idempotent:

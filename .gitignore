@@ -1,4 +1,4 @@
-# prepare-agent-cooperation-project
+# multi-agent-collaboration-kit
 __pycache__/
 *.py[cod]
 .agents/agents/*.md

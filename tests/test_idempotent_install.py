@@ -2,7 +2,7 @@ import tempfile
 import unittest
 from pathlib import Path
 
-from prepare_agent_cooperation_project.cli import adapt
+from multi_agent_collaboration_kit.cli import adapt
 
 
 class IdempotentInstallTest(unittest.TestCase):
@@ -24,9 +24,9 @@ class IdempotentInstallTest(unittest.TestCase):
             claude_md = (root / "CLAUDE.md").read_text(encoding="utf-8")
             gitignore = (root / ".gitignore").read_text(encoding="utf-8")
 
-            self.assertEqual(agents_md.count("prepare-agent-cooperation-project:start"), 1)
-            self.assertEqual(claude_md.count("prepare-agent-cooperation-project:start"), 1)
-            self.assertEqual(gitignore.count("# prepare-agent-cooperation-project"), 1)
+            self.assertEqual(agents_md.count("multi-agent-collaboration-kit:start"), 1)
+            self.assertEqual(claude_md.count("multi-agent-collaboration-kit:start"), 1)
+            self.assertEqual(gitignore.count("# multi-agent-collaboration-kit"), 1)
 
             expected_paths = [
                 ".agents/README.md",

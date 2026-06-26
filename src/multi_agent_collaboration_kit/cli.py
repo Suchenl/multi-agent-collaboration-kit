@@ -5,8 +5,8 @@ from dataclasses import dataclass, field
 from pathlib import Path
 
 
-NEW_MARKER = "prepare-agent-cooperation-project"
-LEGACY_MARKERS = ("init-agent-native-project",)
+NEW_MARKER = "multi-agent-collaboration-kit"
+LEGACY_MARKERS = ("prepare-agent-cooperation-project", "init-agent-native-project")
 
 AGENTS_SECTION = f"""\
 <!-- {NEW_MARKER}:start -->
@@ -278,7 +278,7 @@ def print_report(report: Report) -> None:
 
 def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(
-        prog="prepare-agent-cooperation-project",
+        prog="multi-agent-collaboration-kit",
         description="Create or adapt a repository for lightweight multi-agent work.",
     )
     subparsers = parser.add_subparsers(dest="command", required=True)

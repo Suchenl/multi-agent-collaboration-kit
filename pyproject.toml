@@ -1,16 +1,16 @@
 [project]
-name = "prepare-agent-cooperation-project"
+name = "multi-agent-collaboration-kit"
 version = "0.1.0"
 description = "Tiny agent-ready project initializer and adapter."
 readme = "README.md"
 requires-python = ">=3.10"
 license = { text = "MIT" }
-authors = [{ name = "prepare-agent-cooperation-project contributors" }]
+authors = [{ name = "multi-agent-collaboration-kit contributors" }]
 keywords = ["agents", "AGENTS.md", "Claude", "Cursor", "Codex", "handoff"]
 dependencies = []
 
 [project.scripts]
-prepare-agent-cooperation-project = "prepare_agent_cooperation_project.cli:main"
+multi-agent-collaboration-kit = "multi_agent_collaboration_kit.cli:main"
 
 [build-system]
 requires = ["hatchling"]

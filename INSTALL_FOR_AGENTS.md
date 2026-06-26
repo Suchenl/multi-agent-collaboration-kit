@@ -15,19 +15,19 @@ exists, preserve it. If a managed section is already present, do not add it agai
 From this repository:
 
 ```bash
-PYTHONPATH=src python -m prepare_agent_cooperation_project adapt /path/to/target-repo
+PYTHONPATH=src python -m multi_agent_collaboration_kit adapt /path/to/target-repo
 ```
 
 If the user wants a package skeleton too:
 
 ```bash
-PYTHONPATH=src python -m prepare_agent_cooperation_project adapt /path/to/target-repo --package-name your_package_name
+PYTHONPATH=src python -m multi_agent_collaboration_kit adapt /path/to/target-repo --package-name your_package_name
 ```
 
 ## Create a Fresh Project
 
 ```bash
-PYTHONPATH=src python -m prepare_agent_cooperation_project new /path/to/new-project --package-name your_package_name
+PYTHONPATH=src python -m multi_agent_collaboration_kit new /path/to/new-project --package-name your_package_name
 ```
 
 ## Expected Files

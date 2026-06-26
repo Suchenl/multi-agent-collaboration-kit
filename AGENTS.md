@@ -1,4 +1,4 @@
-<!-- prepare-agent-cooperation-project:start -->
+<!-- multi-agent-collaboration-kit:start -->
 
 ## Multi-Agent Coordination
 
@@ -16,4 +16,4 @@ Rules:
 - Use branches or worktrees for substantial parallel implementation.
 - Keep durable project knowledge in the real docs, not in transient state files.
 
-<!-- prepare-agent-cooperation-project:end -->
+<!-- multi-agent-collaboration-kit:end -->

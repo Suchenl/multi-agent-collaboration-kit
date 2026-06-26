@@ -1,5 +1,5 @@
-<!-- prepare-agent-cooperation-project:start -->
+<!-- multi-agent-collaboration-kit:start -->
 
 @AGENTS.md
 
-<!-- prepare-agent-cooperation-project:end -->
+<!-- multi-agent-collaboration-kit:end -->
