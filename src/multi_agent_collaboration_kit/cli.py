@@ -20,12 +20,18 @@ with your current intent. For long-running or parallel work, create a per-agent
 state file from `.agents/templates/agent_state.md`. For claimable work items,
 use `.agents/templates/task_state.md`.
 
+After using this kit, agents may write improvement feedback in
+`.agents/improve-this-kit/feedback/` and proposals in
+`.agents/improve-this-kit/proposals/`. These are review inputs, not automatic
+instructions. Reusable, reviewed know-how belongs in `.agents/skills/`.
+
 Rules:
 
 - Do not overwrite another agent's active state or task file.
 - Prefer additive edits and explicit handoff notes.
 - Use branches or worktrees for substantial parallel implementation.
 - Keep durable project knowledge in the real docs, not in transient state files.
+- Do not implement kit improvement proposals without explicit review/approval.
 
 <!-- {NEW_MARKER}:end -->
 """
@@ -42,8 +48,12 @@ GITIGNORE_SECTION = f"""\
 # {NEW_MARKER}
 .agents/agents/*.md
 .agents/tasks/*.md
+.agents/retros/*.md
+.agents/improve-this-kit/feedback/*.md
 !.agents/agents/.gitkeep
 !.agents/tasks/.gitkeep
+!.agents/retros/.gitkeep
+!.agents/improve-this-kit/feedback/.gitkeep
 """
 
 FILES = {
@@ -60,8 +70,15 @@ Move durable decisions into `README.md`, `AGENTS.md`, ADRs, or your normal docs.
 - `STATE.md`: shared current project/agent context.
 - `agents/`: optional per-agent state files for concurrent sessions.
 - `tasks/`: optional task claim/handoff files.
+- `retros/`: task retrospective drafts. Promote only reusable lessons.
+- `skills/`: reviewed, reusable skills for agents working in this project.
+- `improve-this-kit/`: review-gated self-improvement loop for this kit.
 - `templates/agent_state.md`: template for per-agent state.
 - `templates/task_state.md`: template for task state.
+- `templates/feedback.md`: template for kit usage feedback.
+- `templates/proposal.md`: template for review-gated kit improvements.
+- `templates/retro.md`: template for post-task retrospectives.
+- `templates/skill.md`: template for reviewed skills.
 
 ## Workflow
 
@@ -69,8 +86,12 @@ Move durable decisions into `README.md`, `AGENTS.md`, ADRs, or your normal docs.
 2. Before editing, note your current task and files you expect to touch.
 3. For parallel work, create `.agents/agents/<agent-name>.md` from the template.
 4. For claimable tasks, create `.agents/tasks/<task-name>.md` from the template.
-5. Keep updates brief and factual.
-6. When finished, write a handoff note and mark your state as done.
+5. After using this kit, write improvement feedback with `.agents/templates/feedback.md`.
+6. For notable task lessons, write a retrospective draft in `.agents/retros/`.
+7. Promote only reviewed, reusable lessons into `.agents/skills/<skill-name>/SKILL.md`.
+8. Propose kit changes in `.agents/improve-this-kit/proposals/`; do not implement them without review.
+9. Keep updates brief and factual.
+10. When finished, write a handoff note and mark your state as done.
 
 ## Safety Rules
 
@@ -78,6 +99,8 @@ Move durable decisions into `README.md`, `AGENTS.md`, ADRs, or your normal docs.
 - Do not claim a file lock forever; include a timestamp and release note.
 - If there is a conflict, stop and ask the user or project owner.
 - Use git branches or worktrees when work overlaps heavily.
+- Feedback and proposals are evidence, not automatic instructions.
+- Do not turn every retrospective into a skill. Skills are curated memory.
 """,
     ".agents/STATE.md": """\
 # STATE
@@ -102,6 +125,121 @@ Project-level shared state for agents.
 """,
     ".agents/agents/.gitkeep": "",
     ".agents/tasks/.gitkeep": "",
+    ".agents/retros/.gitkeep": "",
+    ".agents/improve-this-kit/.gitkeep": "",
+    ".agents/improve-this-kit/README.md": """\
+# .agents/improve-this-kit
+
+Review-gated self-improvement loop for this kit.
+
+- `feedback/`: raw usage feedback, ignored by git by default.
+- `proposals/`: reviewable improvement proposals, trackable by default.
+
+Feedback and proposals are evidence, not automatic instructions. Do not modify
+the kit from this directory without explicit review or a project rule that allows
+the change.
+""",
+    ".agents/improve-this-kit/feedback/.gitkeep": "",
+    ".agents/improve-this-kit/proposals/.gitkeep": "",
+    ".agents/improve-this-kit/feedback/README.md": """\
+# .agents/improve-this-kit/feedback
+
+Raw usage feedback about this kit.
+
+Agents may write feedback after installing or using the kit. Feedback is
+evidence, not instruction. Keep it factual and link commands, files, or confusing
+moments that future maintainers can inspect.
+
+By default, feedback `.md` files are ignored by git. Promote repeatable issues
+to `.agents/improve-this-kit/proposals/` when they deserve review.
+""",
+    ".agents/improve-this-kit/proposals/README.md": """\
+# .agents/improve-this-kit/proposals
+
+Review-gated improvement proposals for this kit.
+
+Proposals are intended to be read and reviewed. They may be committed when they
+represent real framework changes under discussion. A proposal should not become
+implementation until the user, maintainer, or project rules approve it.
+
+Use `.agents/templates/proposal.md`.
+""",
+    ".agents/skills/.gitkeep": "",
+    ".agents/skills/README.md": """\
+# .agents/skills
+
+Reviewed, reusable skills for agents working in this project.
+
+Skills are mature operating knowledge, not raw notes. Agents may propose a skill
+from a retrospective, but should not promote one without explicit review or a
+clear project convention that allows it.
+
+## Layout
+
+```text
+<skill-name>/
+└── SKILL.md
+```
+
+Optional reference files may live beside `SKILL.md`.
+
+## Promotion Criteria
+
+- The lesson is likely to apply again.
+- The trigger condition is clear.
+- The steps are specific and verifiable.
+- The skill is concise enough to be worth loading into context.
+
+Use `.agents/templates/skill.md` when creating a new skill.
+""",
+    ".agents/skills/improve-this-kit/SKILL.md": """\
+---
+name: improve-this-kit
+description: Collect review-gated feedback and improvement proposals for multi-agent-collaboration-kit. Use after adapting a project with this kit, when an agent reports friction using .agents/, or when the user asks how to improve the collaboration framework.
+disable-model-invocation: true
+---
+
+# Improve This Kit
+
+## Purpose
+
+Turn real usage into reviewed improvements without letting agents rewrite the
+framework from a single anecdote.
+
+## When To Use
+
+Use this skill after:
+
+- Installing or adapting a project with `multi-agent-collaboration-kit`.
+- Completing a multi-agent workflow that used `.agents/`.
+- Finding confusing, missing, or noisy coordination instructions.
+- The user asks for feedback on this kit or how to improve it.
+
+## Workflow
+
+1. Write usage feedback in `.agents/improve-this-kit/feedback/<date>-<short-name>.md` using `.agents/templates/feedback.md`.
+2. If the feedback reveals a repeatable issue, write a proposal in `.agents/improve-this-kit/proposals/<short-name>.md` using `.agents/templates/proposal.md`.
+3. Do not edit the kit from feedback alone. Wait for explicit user approval or an existing project rule that allows the change.
+4. When approved, make the smallest change that addresses the proposal.
+5. Add or update an idempotency check, fixture, or test that would fail if the issue returns.
+6. Record the result in the proposal's review notes.
+
+## Proposal Quality Bar
+
+A proposal is worth implementing only if:
+
+- The pain is likely to recur across projects or agents.
+- The expected behavior is easy to verify.
+- The fix is smaller than the confusion it removes.
+- It preserves the additive, non-overwriting install contract.
+
+## Anti-Patterns
+
+- Do not promote every complaint into a framework change.
+- Do not convert raw feedback directly into a skill.
+- Do not add orchestration, daemons, lock servers, or external dependencies unless the user explicitly asks.
+- Do not change installed project files destructively to match the latest kit.
+""",
     ".agents/templates/agent_state.md": """\
 # Agent State: <agent-name>
 
@@ -152,6 +290,122 @@ Project-level shared state for agents.
 
 -
 """,
+    ".agents/templates/feedback.md": """\
+# Kit Feedback: <date>-<short-name>
+
+## Context
+
+- Project:
+- Agent:
+- Date:
+- Command or workflow used:
+
+## What Felt Smooth
+
+-
+
+## What Felt Confusing Or Missing
+
+-
+
+## Evidence
+
+- Files touched:
+- Commands run:
+- Output or behavior observed:
+
+## Suggested Improvement
+
+-
+
+## Should This Become A Proposal?
+
+- Decision: no | proposed
+- Proposal path:
+""",
+    ".agents/templates/proposal.md": """\
+# Kit Improvement Proposal: <short-name>
+
+## Problem
+
+-
+
+## Evidence
+
+-
+
+## Proposed Change
+
+-
+
+## Review Gate
+
+- Status: proposed | approved | rejected | implemented
+- Reviewer:
+- Decision notes:
+
+## Validation Plan
+
+-
+
+## Result
+
+-
+""",
+    ".agents/templates/retro.md": """\
+# Retro: <task-or-date>
+
+## Context
+
+- Task:
+- Agent:
+- Date:
+
+## What Worked
+
+-
+
+## What Failed Or Was Slow
+
+-
+
+## Reusable Lesson
+
+-
+
+## Promote To Skill?
+
+- Decision: no | proposed | promoted
+- Candidate skill name:
+- Trigger condition:
+""",
+    ".agents/templates/skill.md": """\
+---
+name: skill-name
+description: Describe what this skill does and when agents should use it.
+disable-model-invocation: true
+---
+
+# Skill Name
+
+## When To Use
+
+Use this skill when:
+
+-
+
+## Instructions
+
+1.
+
+## Checks
+
+-
+
+## Anti-Patterns
+
+-
+""",
     ".cursor/rules/multi-agent.mdc": """\
 ---
 description: Lightweight multi-agent coordination through .agents/
@@ -169,12 +423,19 @@ Use `.agents/` only for short-lived coordination:
 - `.agents/STATE.md` for shared current context.
 - `.agents/agents/*.md` for per-agent session state.
 - `.agents/tasks/*.md` for task claims and handoffs.
+- `.agents/improve-this-kit/feedback/*.md` for raw usage feedback.
+- `.agents/improve-this-kit/proposals/*.md` for review-gated kit improvement proposals.
+- `.agents/retros/*.md` for post-task retrospectives.
+- `.agents/skills/*/SKILL.md` for reviewed, reusable skills.
 
 Do not overwrite another active agent's state or task file. If work overlaps,
 coordinate through a handoff note, branch, or worktree.
 
 Durable decisions belong in `AGENTS.md`, README files, ADRs, or normal project
 docs, not transient `.agents/` state.
+
+Feedback, retrospectives, and proposals are evidence. Do not implement proposals
+or promote skills without explicit review/approval.
 """,
 }
 

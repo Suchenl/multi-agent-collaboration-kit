@@ -3,6 +3,10 @@ __pycache__/
 *.py[cod]
 .agents/agents/*.md
 .agents/tasks/*.md
+.agents/retros/*.md
+.agents/improve-this-kit/feedback/*.md
 !.agents/agents/.gitkeep
 !.agents/tasks/.gitkeep
+!.agents/retros/.gitkeep
+!.agents/improve-this-kit/feedback/.gitkeep
 .validation/

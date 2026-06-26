@@ -14,9 +14,16 @@ Use `.agents/` only for short-lived coordination:
 - `.agents/STATE.md` for shared current context.
 - `.agents/agents/*.md` for per-agent session state.
 - `.agents/tasks/*.md` for task claims and handoffs.
+- `.agents/improve-this-kit/feedback/*.md` for raw usage feedback.
+- `.agents/improve-this-kit/proposals/*.md` for review-gated kit improvement proposals.
+- `.agents/retros/*.md` for post-task retrospectives.
+- `.agents/skills/*/SKILL.md` for reviewed, reusable skills.
 
 Do not overwrite another active agent's state or task file. If work overlaps,
 coordinate through a handoff note, branch, or worktree.
 
 Durable decisions belong in `AGENTS.md`, README files, ADRs, or normal project
 docs, not transient `.agents/` state.
+
+Feedback, retrospectives, and proposals are evidence. Do not implement proposals
+or promote skills without explicit review/approval.

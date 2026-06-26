@@ -38,9 +38,28 @@ The adapter is additive and idempotent:
 ├── README.md
 ├── STATE.md
 ├── agents/.gitkeep
+├── retros/.gitkeep
+├── skills/
+│   ├── .gitkeep
+│   ├── README.md
+│   └── improve-this-kit/
+│       └── SKILL.md
 ├── tasks/.gitkeep
+├── improve-this-kit/
+│   ├── .gitkeep
+│   ├── README.md
+│   ├── feedback/
+│   │   ├── .gitkeep
+│   │   └── README.md
+│   └── proposals/
+│       ├── .gitkeep
+│       └── README.md
 └── templates/
     ├── agent_state.md
+    ├── feedback.md
+    ├── proposal.md
+    ├── retro.md
+    ├── skill.md
     └── task_state.md
 
 .cursor/rules/multi-agent.mdc
@@ -56,8 +75,26 @@ src/<package_name>/        # only for `new`, or when --package-name is passed
 - `CLAUDE.md` is a thin Claude Code shim.
 - `.cursor/rules/` is a Cursor-native adapter.
 - `.agents/` stores runtime coordination, not long-term design knowledge.
+- `.agents/retros/` stores raw post-task learning drafts.
+- `.agents/skills/` stores reviewed, reusable skills for future agents.
+- `.agents/improve-this-kit/feedback/` stores raw usage feedback about the kit.
+- `.agents/improve-this-kit/proposals/` stores review-gated kit improvement proposals and is trackable by default.
+- `improve-this-kit` turns real usage feedback into reviewed proposals and tests.
 - Design decisions should move to your real docs, ADRs, or README.
 - Work isolation should still prefer branches or worktrees for heavy parallelism.
+
+## Self-Improvement Loop
+
+The kit is designed to improve from real usage without letting agents rewrite it
+from a single anecdote:
+
+1. Agents write raw usage notes in `.agents/improve-this-kit/feedback/`.
+2. Repeatable issues become proposals in `.agents/improve-this-kit/proposals/`.
+3. Proposals require explicit review/approval before implementation.
+4. Accepted changes must include or update an idempotency check, fixture, or test.
+5. Reviewed, reusable know-how can become a skill in `.agents/skills/`.
+
+Use `.agents/skills/improve-this-kit/SKILL.md` for the review-gated workflow.
 
 ## For Agents
 
