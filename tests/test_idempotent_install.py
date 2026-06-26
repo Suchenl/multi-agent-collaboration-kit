@@ -72,6 +72,7 @@ class IdempotentInstallTest(unittest.TestCase):
 
             gitignore = (root / ".gitignore").read_text(encoding="utf-8")
             self.assertIn(".agents/improve-this-kit/feedback/*.md", gitignore)
+            self.assertIn("!.agents/improve-this-kit/feedback/README.md", gitignore)
             self.assertIn(".agents/retros/*.md", gitignore)
             self.assertNotIn(".agents/improve-this-kit/proposals/*.md", gitignore)
 

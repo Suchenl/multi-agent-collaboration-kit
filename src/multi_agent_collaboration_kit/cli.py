@@ -54,6 +54,7 @@ GITIGNORE_SECTION = f"""\
 !.agents/tasks/.gitkeep
 !.agents/retros/.gitkeep
 !.agents/improve-this-kit/feedback/.gitkeep
+!.agents/improve-this-kit/feedback/README.md
 """
 
 FILES = {
