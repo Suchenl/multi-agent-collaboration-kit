@@ -1,0 +1,4 @@
+"""Agent cooperation project initializer."""
+
+__version__ = "0.1.0"
+

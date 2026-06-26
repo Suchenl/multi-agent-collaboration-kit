@@ -1,0 +1,6 @@
+# prepare-agent-cooperation-project
+.agents/agents/*.md
+.agents/tasks/*.md
+!.agents/agents/.gitkeep
+!.agents/tasks/.gitkeep
+.validation/

@@ -1,0 +1,22 @@
+---
+description: Lightweight multi-agent coordination through .agents/
+globs:
+alwaysApply: true
+---
+
+# Multi-Agent Coordination
+
+Before starting non-trivial work, read `.agents/README.md` and `.agents/STATE.md`
+if they exist.
+
+Use `.agents/` only for short-lived coordination:
+
+- `.agents/STATE.md` for shared current context.
+- `.agents/agents/*.md` for per-agent session state.
+- `.agents/tasks/*.md` for task claims and handoffs.
+
+Do not overwrite another active agent's state or task file. If work overlaps,
+coordinate through a handoff note, branch, or worktree.
+
+Durable decisions belong in `AGENTS.md`, README files, ADRs, or normal project
+docs, not transient `.agents/` state.

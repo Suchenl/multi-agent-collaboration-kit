@@ -1,0 +1,18 @@
+[project]
+name = "prepare-agent-cooperation-project"
+version = "0.1.0"
+description = "Tiny agent-ready project initializer and adapter."
+readme = "README.md"
+requires-python = ">=3.10"
+license = { text = "MIT" }
+authors = [{ name = "prepare-agent-cooperation-project contributors" }]
+keywords = ["agents", "AGENTS.md", "Claude", "Cursor", "Codex", "handoff"]
+dependencies = []
+
+[project.scripts]
+prepare-agent-cooperation-project = "prepare_agent_cooperation_project.cli:main"
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
