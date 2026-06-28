@@ -1,0 +1,108 @@
+[catalog]
+name = "mackit"
+description = "Curated skills for agent collaboration, repo adaptation, graphics, research, and review workflows."
+
+[[bundle]]
+name = "common"
+description = "Core collaboration skills useful in almost every project."
+
+[[bundle]]
+name = "workflows"
+description = "Task-oriented skills for repository adaptation and operational workflows."
+
+[[bundle]]
+name = "graphics"
+description = "Drawing, diagramming, visual reconstruction, and editable graphics workflows."
+
+[[bundle]]
+name = "research"
+description = "Research writing and survey workflows."
+
+[[bundle]]
+name = "review"
+description = "Review gates and quality checks."
+
+[[skill]]
+name = "multi-agent-handoff"
+path = "common/multi-agent-handoff"
+bundles = ["common"]
+roles = ["engineer", "researcher", "reviewer", "maintainer"]
+workflows = ["handoff", "parallel-work"]
+triggers = ["handoff", "parallel agents", "state file", "coordination"]
+
+[[skill]]
+name = "repo-adaptation"
+path = "workflows/repo-adaptation"
+bundles = ["workflows"]
+roles = ["engineer", "maintainer"]
+workflows = ["repo-adaptation", "installation"]
+triggers = ["adapt repo", "install kit", "agent-ready project"]
+
+[[skill]]
+name = "xiaobei-skill-image-to-vba"
+path = "graphics/xiaobei-skill-image-to-vba"
+bundles = ["graphics"]
+roles = ["designer", "researcher"]
+workflows = ["graphics", "drawing", "slides", "editable-artifacts", "vba-reconstruction"]
+triggers = ["image to ppt", "editable slides", "turn screenshot into powerpoint", "VBA", "Office Shapes", "academic figure reconstruction"]
+source = "https://github.com/xiao24bei/xiaobei-skill-image-to-vba"
+license = "Apache-2.0"
+
+[[skill]]
+name = "paper-framework-figure-studio-pro"
+path = "graphics/paper-framework-figure-studio-pro"
+bundles = ["graphics"]
+roles = ["researcher", "designer"]
+workflows = ["graphics", "paper-figures", "framework-diagrams", "method-overview"]
+triggers = ["framework figure", "paper figure", "method overview", "architecture diagram", "pipeline figure"]
+source = "https://github.com/c-narcissus/paper-framework-figure-studio-pro"
+license = "MIT-0"
+
+[[skill]]
+name = "image-to-editable-ppt"
+path = "graphics/image-to-editable-ppt"
+bundles = ["graphics"]
+roles = ["designer", "researcher"]
+workflows = ["graphics", "slides", "editable-ppt", "pptx-reconstruction"]
+triggers = ["image to editable ppt", "PDF to PPT", "scanned deck", "editable PowerPoint", "restore PPT"]
+source = "https://github.com/ningzimu/image-to-editable-ppt-skill"
+license = "MIT"
+
+[[skill]]
+name = "visiomaster"
+path = "graphics/visiomaster"
+bundles = ["graphics"]
+roles = ["designer", "researcher", "engineer"]
+workflows = ["graphics", "diagram-reconstruction", "visio", "vsdx"]
+triggers = ["Visio", "vsdx", "flowchart reconstruction", "architecture diagram", "paper module figure"]
+source = "https://github.com/Rss3208/Visiomaster"
+license = "MIT"
+
+[[skill]]
+name = "research-paper-writing"
+path = "research/research-paper-writing"
+bundles = ["research"]
+roles = ["researcher", "reviewer"]
+workflows = ["paper-writing", "survey", "academic-editing"]
+triggers = ["paper", "abstract", "introduction", "related work", "method", "experiments"]
+source = "https://github.com/Master-cai/Research-Paper-Writing-Skills"
+license = "MIT"
+
+[[skill]]
+name = "baseline-selector"
+path = "research/baseline-selector"
+bundles = ["research"]
+roles = ["researcher", "reviewer"]
+workflows = ["baseline-selection", "experiment-planning", "paper-audit"]
+triggers = ["baseline", "baselines", "SOTA", "reviewer risk", "experiment plan", "compute budget"]
+source = "https://github.com/RyanZhou168/baseline-selector"
+license = "MIT"
+
+[[skill]]
+name = "review-gate"
+path = "review/review-gate"
+bundles = ["review"]
+roles = ["reviewer", "maintainer"]
+workflows = ["review", "proposal-review", "quality-gate"]
+triggers = ["review", "gate", "approval", "proposal"]
+

@@ -1,6 +1,9 @@
 # multi-agent-collaboration-kit
 __pycache__/
 *.py[cod]
+build/
+dist/
+*.egg-info/
 .agents/agents/*.md
 .agents/tasks/*.md
 .agents/retros/*.md

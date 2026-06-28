@@ -2,12 +2,19 @@
 
 Use this repository in one of two ways.
 
+## Install From PyPI
+
+```bash
+pip install mackit
+mackit adapt /path/to/target-repo
+```
+
 ## Clone as a New Project Base
 
 ```bash
 git clone <repo-url> my-project
 cd my-project
-PYTHONPATH=src python -m multi_agent_collaboration_kit new . --package-name my_project
+PYTHONPATH=src python -m mackit new . --package-name my_project
 ```
 
 After cloning, replace this initializer's README with your project README when
@@ -28,8 +35,12 @@ Acceptance criteria:
 The agent can then clone this repository to a temporary location and run:
 
 ```bash
-PYTHONPATH=src python -m multi_agent_collaboration_kit adapt /path/to/target-repo
+PYTHONPATH=src python -m mackit adapt /path/to/target-repo --yes
 ```
+
+The default install includes all curated skill bundles from this kit's
+`.agents/skills/` catalog.
+Agents should keep the default unless the user asks to narrow the skill set.
 
 ## What This Is Not
 

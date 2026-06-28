@@ -12,22 +12,28 @@ exists, preserve it. If a managed section is already present, do not add it agai
 
 ## Install Into an Existing Project
 
-From this repository:
+If `mackit` is installed:
 
 ```bash
-PYTHONPATH=src python -m multi_agent_collaboration_kit adapt /path/to/target-repo
+mackit adapt /path/to/target-repo --yes
+```
+
+From a source checkout of this repository:
+
+```bash
+PYTHONPATH=src python -m mackit adapt /path/to/target-repo --yes
 ```
 
 If the user wants a package skeleton too:
 
 ```bash
-PYTHONPATH=src python -m multi_agent_collaboration_kit adapt /path/to/target-repo --package-name your_package_name
+mackit adapt /path/to/target-repo --package-name your_package_name --yes
 ```
 
 ## Create a Fresh Project
 
 ```bash
-PYTHONPATH=src python -m multi_agent_collaboration_kit new /path/to/new-project --package-name your_package_name
+mackit new /path/to/new-project --package-name your_package_name --yes
 ```
 
 ## Expected Files
@@ -41,7 +47,9 @@ After installation, verify these paths exist:
 .agents/retros/.gitkeep
 .agents/skills/.gitkeep
 .agents/skills/README.md
-.agents/skills/improve-this-kit/SKILL.md
+.agents/skills/registry.toml
+.agents/skills/common/improve-this-kit/SKILL.md
+.agents/skills/common/improve-this-kit/reference.md
 .agents/tasks/.gitkeep
 .agents/improve-this-kit/.gitkeep
 .agents/improve-this-kit/README.md
@@ -60,6 +68,24 @@ AGENTS.md
 CLAUDE.md
 .gitignore
 ```
+
+By default, optional curated skills from this kit's `.agents/skills/` are also installed into
+`.agents/skills/`. Ask the user before narrowing the selection. Use
+`--yes` to install all recommended bundles non-interactively,
+`--skill-bundles common,graphics` to install specific bundles, or
+`--no-curated-skills` to skip optional curated skills.
+
+Recommended agent prompt:
+
+```text
+This kit installs curated skill bundles by default: common, workflows, design,
+research, and review. Keep all selected unless the user asks to narrow the
+installation.
+```
+
+External skill discovery is optional. If the user asks for it, follow
+`.agents/skills/external/README.md`: report candidate skills first and install
+only after approval.
 
 If `--package-name` was provided, also verify:
 
