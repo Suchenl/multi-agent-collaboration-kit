@@ -1,6 +1,16 @@
 # mackit
 
+[![PyPI version](https://img.shields.io/pypi/v/mackit.svg)](https://pypi.org/project/mackit/)
+[![Python versions](https://img.shields.io/pypi/pyversions/mackit.svg)](https://pypi.org/project/mackit/)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
+
 Make a repository ready for multi-agent work with one clone and one command.
+
+Install from PyPI:
+
+```bash
+pip install mackit
+```
 
 This kit gives agents a shared workspace (`.agents/`), a small set of
 coordination rules, and a curated skill catalog inside `.agents/skills/`. Users do not need to design
@@ -35,7 +45,7 @@ Install optional curated skills?
 Select skill bundles:
 [x] common
 [x] workflows
-[x] design
+[x] graphics
 [x] research
 [x] review
 ```
