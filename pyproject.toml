@@ -38,6 +38,7 @@ include = [
   "/src",
   "/tests",
   "/INSTALL_FOR_AGENTS.md",
+  "/CHANGELOG.md",
   "/LICENSE",
   "/README.md",
 ]

@@ -150,6 +150,9 @@ target `.agents/skills/`, preserving grouped paths such as
 - `CLAUDE.md` is a thin Claude Code shim.
 - `.cursor/rules/` is a Cursor-native adapter.
 - `.agents/` stores runtime coordination, not long-term design knowledge.
+- `.agents/agents/*.md` is the source of truth for live per-agent state; `.agents/STATE.md` is only a low-frequency shared summary to avoid parallel write contention.
+- State should stay cheap: read only the `STATE.md` top summary by default, keep
+  stubs short, and reference logs/paths instead of pasting long output.
 - `.agents/retros/` stores raw post-task learning drafts.
 - `.agents/skills/` stores reviewed, reusable skills for future agents.
 - `.agents/improve-this-kit/feedback/` stores raw usage feedback about the kit.

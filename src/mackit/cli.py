@@ -33,10 +33,10 @@ AGENTS_SECTION = f"""\
 
 This project uses `.agents/` for lightweight agent coordination.
 
-Before starting work, read `.agents/README.md` and update `.agents/STATE.md`
-with your current intent. For long-running or parallel work, create a per-agent
-state file from `.agents/templates/agent_state.md`. For claimable work items,
-use `.agents/templates/task_state.md`.
+Before starting work, read `.agents/README.md` and only the top summary of
+`.agents/STATE.md` by default, then keep live status in a per-agent state file
+from `.agents/templates/agent_state.md`. For claimable work items, use
+`.agents/templates/task_state.md`.
 
 After using this kit, agents may write improvement feedback in
 `.agents/improve-this-kit/feedback/` and proposals in
@@ -46,7 +46,12 @@ instructions. Reusable, reviewed know-how belongs in `.agents/skills/`.
 Rules:
 
 - Do not overwrite another agent's active state or task file.
-- Prefer additive edits and explicit handoff notes.
+- Treat `.agents/STATE.md` as a low-frequency shared summary, not a live task
+  database. Avoid routine read-modify-write edits there; concurrent agents can
+  overwrite each other.
+- Keep state cheap: stubs under ~20 lines, one-line status/hook messages, and
+  path references instead of pasted logs.
+- Prefer additive edits and explicit handoff notes in per-agent or task files.
 - Use branches or worktrees for substantial parallel implementation.
 - Keep durable project knowledge in the real docs, not in transient state files.
 - Do not implement kit improvement proposals without explicit review/approval.
@@ -86,8 +91,8 @@ Move durable decisions into `README.md`, `AGENTS.md`, ADRs, or your normal docs.
 
 ## Files
 
-- `STATE.md`: shared current project/agent context.
-- `agents/`: optional per-agent state files for concurrent sessions.
+- `STATE.md`: low-frequency shared project summary; not a live task database.
+- `agents/`: per-agent session state files; source of truth for active work.
 - `tasks/`: optional task claim/handoff files.
 - `retros/`: task retrospective drafts. Promote only reusable lessons.
 - `skills/`: reviewed, reusable skills for agents working in this project.
@@ -102,15 +107,19 @@ Move durable decisions into `README.md`, `AGENTS.md`, ADRs, or your normal docs.
 ## Workflow
 
 1. Read `AGENTS.md`, this file, and `STATE.md`.
-2. Before editing, note your current task and files you expect to touch.
-3. For parallel work, create `.agents/agents/<agent-name>.md` from the template.
+   For `STATE.md`, read only the top summary by default (about 40 lines); search
+   or read more only when old handoffs are directly relevant.
+2. Before editing, fill your `.agents/agents/<agent-name>.md` stub with the current
+   task and files you expect to touch. Keep it terse.
+3. For parallel work, keep all live status in that per-agent file.
 4. For claimable tasks, create `.agents/tasks/<task-name>.md` from the template.
 5. After using this kit, write improvement feedback with `.agents/templates/feedback.md`.
 6. For notable task lessons, write a retrospective draft in `.agents/retros/`.
 7. Promote only reviewed, reusable lessons into `.agents/skills/<skill-name>/SKILL.md`.
 8. Propose kit changes in `.agents/improve-this-kit/proposals/`; do not implement them without review.
 9. Keep updates brief and factual.
-10. When finished, write a handoff note and mark your state as done.
+10. When finished, fill the stub's `Handoff` section and mark it done. Append to
+    `STATE.md` only for shared project-level context.
 
 ## Safety Rules
 
@@ -118,6 +127,10 @@ Move durable decisions into `README.md`, `AGENTS.md`, ADRs, or your normal docs.
 - Do not claim a file lock forever; include a timestamp and release note.
 - If there is a conflict, stop and ask the user or project owner.
 - Use git branches or worktrees when work overlaps heavily.
+- Avoid using `STATE.md` for routine start/finish bookkeeping; concurrent agents
+  can overwrite each other's read-modify-write edits.
+- Token budget: keep per-agent stubs under ~20 lines, hook/status messages one
+  line, and `STATE.md` handoffs short enough to scan.
 - Feedback and proposals are evidence, not automatic instructions.
 - Do not turn every retrospective into a skill. Skills are curated memory.
 """,
@@ -125,6 +138,14 @@ Move durable decisions into `README.md`, `AGENTS.md`, ADRs, or your normal docs.
 # STATE
 
 Project-level shared state for agents.
+
+Concurrency note: this file is a low-frequency shared summary, not the source
+of truth for live agent status. Each agent should keep routine start/progress/end
+state in its own `.agents/agents/<agent-name>.md` file. Append here only for
+concise shared handoff notes, and never rewrite old sections while other agents
+may be active.
+Token note: future agents should read only this top summary by default and search
+older handoffs only when needed.
 
 ## Current Focus
 
@@ -370,28 +391,16 @@ Good regression fixtures include:
 - Project where raw feedback files should remain ignored by git.
 """,
     ".agents/templates/agent_state.md": """\
-# Agent State: <agent-name>
+# Agent: <agent-name>
 
-## Status
+State: active | blocked | done
+Started: YYYY-MM-DD HH:MM
+Last update: YYYY-MM-DD HH:MM
 
-- State: active | blocked | done
-- Started: YYYY-MM-DD HH:MM
-- Last update: YYYY-MM-DD HH:MM
-
-## Current Task
-
-- Goal:
-- Scope:
-- Files expected to touch:
-
-## Notes
-
-- 
-
-## Handoff
-
-- Result:
-- Follow-up:
+Task:
+Files:
+Notes:
+Handoff:
 """,
     ".agents/templates/task_state.md": """\
 # Task State: <task-name>
@@ -544,13 +553,14 @@ alwaysApply: true
 
 # Multi-Agent Coordination
 
-Before starting non-trivial work, read `.agents/README.md` and `.agents/STATE.md`
-if they exist.
+Before starting non-trivial work, read `.agents/README.md` and the top summary of
+`.agents/STATE.md` (about 40 lines) if they exist, then keep live status in your
+own `.agents/agents/*.md` file.
 
 Use `.agents/` only for short-lived coordination:
 
-- `.agents/STATE.md` for shared current context.
-- `.agents/agents/*.md` for per-agent session state.
+- `.agents/STATE.md` for low-frequency shared project context.
+- `.agents/agents/*.md` for per-agent session state; source of truth for live work.
 - `.agents/tasks/*.md` for task claims and handoffs.
 - `.agents/improve-this-kit/feedback/*.md` for raw usage feedback.
 - `.agents/improve-this-kit/proposals/*.md` for review-gated kit improvement proposals.
@@ -559,6 +569,12 @@ Use `.agents/` only for short-lived coordination:
 
 Do not overwrite another active agent's state or task file. If work overlaps,
 coordinate through a handoff note, branch, or worktree.
+
+Do not use `.agents/STATE.md` for routine start/finish bookkeeping. It is a
+shared summary file, so concurrent read-modify-write edits are easy to clobber.
+
+Token budget: keep stubs under ~20 lines, hook/status messages one line, and
+shared handoffs brief. Do not paste logs into `.agents`; reference paths.
 
 Durable decisions belong in `AGENTS.md`, README files, ADRs, or normal project
 docs, not transient `.agents/` state.

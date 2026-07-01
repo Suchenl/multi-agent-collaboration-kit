@@ -6,13 +6,14 @@ alwaysApply: true
 
 # Multi-Agent Coordination
 
-Before starting non-trivial work, read `.agents/README.md` and `.agents/STATE.md`
-if they exist.
+Before starting non-trivial work, read `.agents/README.md` and the top summary of
+`.agents/STATE.md` (about 40 lines) if they exist, then keep live status in your
+own `.agents/agents/*.md` file.
 
 Use `.agents/` only for short-lived coordination:
 
-- `.agents/STATE.md` for shared current context.
-- `.agents/agents/*.md` for per-agent session state.
+- `.agents/STATE.md` for low-frequency shared project context.
+- `.agents/agents/*.md` for per-agent session state; source of truth for live work.
 - `.agents/tasks/*.md` for task claims and handoffs.
 - `.agents/improve-this-kit/feedback/*.md` for raw usage feedback.
 - `.agents/improve-this-kit/proposals/*.md` for review-gated kit improvement proposals.
@@ -21,6 +22,12 @@ Use `.agents/` only for short-lived coordination:
 
 Do not overwrite another active agent's state or task file. If work overlaps,
 coordinate through a handoff note, branch, or worktree.
+
+Do not use `.agents/STATE.md` for routine start/finish bookkeeping. It is a
+shared summary file, so concurrent read-modify-write edits are easy to clobber.
+
+Token budget: keep stubs under ~20 lines, hook/status messages one line, and
+shared handoffs brief. Do not paste logs into `.agents`; reference paths.
 
 Durable decisions belong in `AGENTS.md`, README files, ADRs, or normal project
 docs, not transient `.agents/` state.

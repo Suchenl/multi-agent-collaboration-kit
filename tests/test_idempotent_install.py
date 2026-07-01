@@ -25,10 +25,15 @@ class IdempotentInstallTest(unittest.TestCase):
             agents_md = (root / "AGENTS.md").read_text(encoding="utf-8")
             claude_md = (root / "CLAUDE.md").read_text(encoding="utf-8")
             gitignore = (root / ".gitignore").read_text(encoding="utf-8")
+            state_md = (root / ".agents" / "STATE.md").read_text(encoding="utf-8")
+            rule_md = (root / ".cursor" / "rules" / "multi-agent.mdc").read_text(encoding="utf-8")
 
             self.assertEqual(agents_md.count("multi-agent-collaboration-kit:start"), 1)
             self.assertEqual(claude_md.count("multi-agent-collaboration-kit:start"), 1)
             self.assertEqual(gitignore.count("# multi-agent-collaboration-kit"), 1)
+            self.assertIn("low-frequency shared summary", state_md)
+            self.assertIn("source of truth for live work", rule_md)
+            self.assertNotIn("update `.agents/STATE.md`", agents_md)
 
             expected_paths = [
                 ".agents/README.md",
